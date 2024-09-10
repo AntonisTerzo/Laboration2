@@ -38,7 +38,7 @@ public class Monster implements Movable {
 
         // Monster attacks player if still alive
         if (this.health > 0) {
-            int monsterDamage = Math.max(2, this.strength - player.getStrength()); 
+            int monsterDamage = Math.max(5, this.strength - player.getStrength()); 
             player.setHealth(player.getHealth() - monsterDamage);
             System.out.println("The monster dealt " + monsterDamage + " damage to you.");
         }

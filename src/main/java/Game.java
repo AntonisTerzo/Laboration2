@@ -12,12 +12,17 @@ public class Game {
     public Game(int width, int height) {
         maze = new Maze(width, height);
         scanner = new Scanner(System.in);
-        System.out.println("Welcome to the Maze Game! What is your name?");
-        String name = scanner.nextLine();
-        player = new Player(name, 1, 1);
         monsters = new ArrayList<>();
         items = new ArrayList<>();
         initializeGame();
+        welcomePlayer();
+    }
+
+
+    private void welcomePlayer() {
+        System.out.println("Welcome to the Maze Game! What is your name?");
+        String name = scanner.nextLine();
+        player = new Player(name, 1, 1);
     }
 
     private void initializeGame() {
