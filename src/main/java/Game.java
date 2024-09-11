@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -132,7 +133,7 @@ public class Game {
     }
 
     private void checkMonsterCollisions() {
-        for (Monster monster : new ArrayList<>(monsters)) {
+        for (Monster monster : Collections.unmodifiableList(monsters)) {
             if (monster.getX() == player.getX() && monster.getY() == player.getY()) {
                 System.out.println("You encountered a monster!");
                 monster.interact(player);
@@ -146,17 +147,23 @@ public class Game {
                     System.out.println("Game Over! You were defeated by a monster.");
                     return; // Exit the method if player is defeated
                 }
+
+                System.out.println("Press enter to continue...");
+                scanner.nextLine();
             }
         }
     }
 
     private void checkItemPickups() {
-        for (Item item : new ArrayList<>(items)) { // Create a copy to avoid ConcurrentModificationException
+        for (Item item : Collections.unmodifiableList(items)) {
             if (item.getX() == player.getX() && item.getY() == player.getY()) {
                 if (item instanceof Treasure) {
                     player.setScore(player.getScore() + ((Treasure) item).getValue());
                     System.out.println("You found a treasure! Score +" + ((Treasure) item).getValue());
                     items.remove(item);
+
+                    System.out.println("Press enter to continue...");
+                    scanner.nextLine();
                 }
             }
         }
