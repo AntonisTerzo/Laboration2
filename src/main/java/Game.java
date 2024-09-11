@@ -118,14 +118,20 @@ public class Game {
     }
 
     private void updateGameState() {
-        // Update monster positions
+        updateMonsterPositions();
+        checkMonsterCollisions();
+        checkItemPickups();
+    }
+
+    private void updateMonsterPositions() {
         for (Monster monster : monsters) {
             int dx = (int) (Math.random() * 3) - 1;
             int dy = (int) (Math.random() * 3) - 1;
             monster.move(dx, dy, maze);
         }
+    }
 
-        // Check for collisions with monsters
+    private void checkMonsterCollisions() {
         for (Monster monster : new ArrayList<>(monsters)) {
             if (monster.getX() == player.getX() && monster.getY() == player.getY()) {
                 System.out.println("You encountered a monster!");
@@ -142,8 +148,9 @@ public class Game {
                 }
             }
         }
+    }
 
-        // Check for item pickups
+    private void checkItemPickups() {
         for (Item item : new ArrayList<>(items)) { // Create a copy to avoid ConcurrentModificationException
             if (item.getX() == player.getX() && item.getY() == player.getY()) {
                 if (item instanceof Treasure) {
